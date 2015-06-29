@@ -1,0 +1,28 @@
+{
+  "name": "TutoringApp",
+  "version": "0.1.0-0",
+  "description": "An application to make it easier to get tutors",
+  "author": "Mauro Palsgraaf <mauropalsgraaf@hotmail.com>",
+  "contributors": [
+    {
+      "name": "Mauro Palsgraaf",
+      "email": "Mauropalsgraaf@hotmail.com"
+    }
+  ],
+  "dependencies": {
+    "gulp-react": "^3.0.1",
+    "jquery": "^2.1.4",
+    "react": "^0.13.3",
+    "requirejs-text": "^2.0.12"
+  },
+  "devDependencies": {
+    "babel": "^5.6.14",
+    "browser-sync": "^2.7.12",
+    "es6-module-loader": "^0.17.3",
+    "gulp": "^3.9.0",
+    "gulp-concat": "^2.6.0",
+    "gulp-connect": "^2.2.0",
+    "gulp-shell": "^0.4.2",
+    "gulp-useref": "^1.2.0"
+  }
+}
