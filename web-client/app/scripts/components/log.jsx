@@ -1,19 +1,27 @@
-'use strict'
+'use strict';
 
-define(function (require, exports) {
-  var React = require('react');
+var React = require('../../../../node_modules/react/dist/react');
 
-  var HelloWorld = React.createClass({
-    displayName : "HelloWorld",
-    render : function () {
-      return (
-        <div>
-          <h1>Hello World, welcome to Reactjs</h1>
-          <p>test is browsersync works correctly</p>
-        </div>
-      );
-    }
-  });
+class Widget extends React.Component {
 
-  exports.HelloWorld = HelloWorld;
-});
+  constructor() {
+    super();
+    this.state = {
+      displayNumber : 1
+    };
+    this. _handleClick = this. _handleClick.bind(this);
+  };
+
+  render() {
+    return (
+      <div>{this.state.displayNumber}<button onclick={this._handleClick}></button></div>
+    )
+  };
+
+  _handleClick() {
+    console.log("test");
+    this.setState({displayNumber : this.state.displayNumber + 1})
+  }
+}
+
+module.exports = Widget;
