@@ -4,8 +4,9 @@ var reload = browserSync.reload;
 var react = require('gulp-react');
 var babel = require('gulp-babel');
 var shell = require('gulp-shell');
+var plumber = require('gulp-plumber');
 
-gulp.task('server', ['optimize'], function () {
+gulp.task('server', ['transformJS'], function () {
 
   browserSync.init({
     server : {
@@ -13,27 +14,31 @@ gulp.task('server', ['optimize'], function () {
     }
   });
 
-  gulp.watch('./app/scripts/main.js', ['reload']);
   gulp.watch('./app/scripts/**/*.jsx', ['reload']);
 
 });
 
-gulp.task('reload', ['transformJS'], /*['optimize'], uncomment to optimize, but make sure you change this ins index.html*/function () {
+gulp.task('reload', ['transformJS'], function () {
   browserSync.reload();
-})
+});
 
-gulp.task('transformJS', function () {
-  transformJS()
+gulp.task('transformJS', ['generateMainFile'], function () {
+  return gulp.src('./app/scripts/**/*.jsx')
+    .pipe(plumber())
+    .pipe(react())
+    .pipe(babel())
+    .pipe(gulp.dest('./app/scripts/dist'));
+});
+
+gulp.task('generateMainFile', function () {
+  return gulp.src('./app/scripts/main.jsx')
+    .pipe(plumber())
+    .pipe(react())
+    .pipe(babel())
+    .pipe(gulp.dest('./app/scripts/'));
 });
 
 gulp.task('optimize', ['transformJS'], shell.task([
   'node app/build/r.js -o name=main baseUrl=app/scripts mainConfigFile=app/scripts/main.js ' +
   'out=app/scripts/dist/main-optimized.js generateSourceMaps=true preserveLicenseComments=false optimize=none'
 ]));
-
-var transformJS = function (folder) {
-  return gulp.src('./app/scripts/**/*.jsx')
-    .pipe(react())
-    .pipe(babel())
-    .pipe(gulp.dest('./app/scripts/dist'));
-}
