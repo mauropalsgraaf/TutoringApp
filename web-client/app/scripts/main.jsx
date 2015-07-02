@@ -1,19 +1,15 @@
 'use strict';
 
 require.config({
-  baseUrl : '/app/scripts',
+  baseUrl : '/app/dist',
   paths : {
     "react" : '../../node_modules/react/dist/react' || '',
-    "react-router" : '../../node_modules/react-router/umd/ReactRouter.min' || '',
-    "react-hashlocation" : '../../node_modules/react-router/lib/location/HashLocation' || ''
+    "react-router" : '../../node_modules/react-router/umd/ReactRouter.min' || ''
   }
 });
 
-require(['react', 'react-router', 'dist/router/router'], function (React, Router, appRoutes) {
-
-  console.log(appRoutes.Routes);
-
-  Router.run(appRoutes.Routes, Router.HashLocation, function (Handler, state) {
+require(['react', 'react-router', 'router/router'], function (React, Router, appRoutes) {
+  Router.run(appRoutes.Routes, Router.HashLocation, function (Handler) {
     React.render(<Handler />, document.body);
   });
 });

@@ -14,7 +14,7 @@ gulp.task('server', ['transformJS'], function () {
     }
   });
 
-  gulp.watch('./app/scripts/**/*.jsx', ['reload']);
+  gulp.watch('./app/scripts/**/**/**/*.jsx', ['reload']);
 
 });
 
@@ -23,22 +23,27 @@ gulp.task('reload', ['transformJS'], function () {
 });
 
 gulp.task('transformJS', ['generateMainFile'], function () {
-  return gulp.src('./app/scripts/**/*.jsx')
+  return gulp.src('./app/scripts/**/**/**/*.jsx')
     .pipe(plumber())
     .pipe(react())
     .pipe(babel())
-    .pipe(gulp.dest('./app/scripts/dist'));
+    .pipe(gulp.dest('./app/dist'));
 });
 
-gulp.task('generateMainFile', function () {
+gulp.task('generateMainFile', ['includeRequireAndIndex'], function () {
   return gulp.src('./app/scripts/main.jsx')
     .pipe(plumber())
     .pipe(react())
     .pipe(babel())
-    .pipe(gulp.dest('./app/scripts/'));
+    .pipe(gulp.dest('./app/dist/'));
 });
 
-gulp.task('optimize', ['transformJS'], shell.task([
+gulp.task('includeRequireAndIndex', function () {
+  return gulp.src(['./app/index.html', './app/scripts/require.js'])
+  .pipe(gulp.dest('./app/dist'))
+});
+
+gulp.task('optimize', ['transformJS'], shell.task([ //NOT WORKING ANYMORE, MAKE SURE PATH IS CORRECT
   'node app/build/r.js -o name=main baseUrl=app/scripts mainConfigFile=app/scripts/main.js ' +
   'out=app/scripts/dist/main-optimized.js generateSourceMaps=true preserveLicenseComments=false optimize=none'
 ]));
