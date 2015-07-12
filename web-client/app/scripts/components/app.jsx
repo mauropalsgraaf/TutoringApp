@@ -1,23 +1,24 @@
 'use strict';
 
 define(function (require, exports) {
-  var React = require('react');
-  var Router = require('react-router');
+  var React = require("react");
+  var Router = require("react-router");
   var RouteHandler = Router.RouteHandler;
+  var Menu = require("components/menu/menu");
 
-  class App extends React.Component {
+  class app extends React.Component {
     constructor() {
       super();
     }
 
     render() {
       return (
-        <div>APP
-          <RouteHandler/>
+        <div>
+          <Menu.Menu />
         </div>
       );
     }
   }
-  
-  exports.App = App;
+
+  exports.App = app;
 });

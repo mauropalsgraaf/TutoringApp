@@ -1,0 +1,10 @@
+$color: blue;
+
+@mixin my-border($color) {
+  border: 1px solid $color;
+}
+
+body {
+  background: $color;
+  @include my-border(yellow);
+}

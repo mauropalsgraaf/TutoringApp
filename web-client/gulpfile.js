@@ -5,6 +5,7 @@ var react = require('gulp-react');
 var babel = require('gulp-babel');
 var shell = require('gulp-shell');
 var plumber = require('gulp-plumber');
+var sass = require('gulp-sass');
 
 gulp.task('server', ['transformJS'], function () {
 
@@ -14,7 +15,8 @@ gulp.task('server', ['transformJS'], function () {
     }
   });
 
-  gulp.watch('./app/scripts/**/**/**/*.jsx', ['reload']);
+  gulp.watch('./app/scripts/**/**/**/**/**/*.jsx', ['reload']);
+  gulp.watch('./app/styles/**/**/**/**/**/*.scss', ['reload']);
 
 });
 
@@ -38,12 +40,14 @@ gulp.task('generateMainFile', ['includeRequireAndIndex'], function () {
     .pipe(gulp.dest('./app/dist/'));
 });
 
-gulp.task('includeRequireAndIndex', function () {
+gulp.task('includeRequireAndIndex', ['compile-sass'], function () {
   return gulp.src(['./app/index.html', './app/scripts/require.js'])
-  .pipe(gulp.dest('./app/dist'))
+    .pipe(gulp.dest('./app/dist'))
 });
 
-gulp.task('optimize', ['transformJS'], shell.task([ //NOT WORKING ANYMORE, MAKE SURE PATH IS CORRECT
-  'node app/build/r.js -o name=main baseUrl=app/scripts mainConfigFile=app/scripts/main.js ' +
-  'out=app/scripts/dist/main-optimized.js generateSourceMaps=true preserveLicenseComments=false optimize=none'
-]));
+gulp.task('compile-sass', function () {
+  gulp.src('./app/styles/**/*.scss')
+    .pipe(plumber())
+    .pipe(sass({outputStyle: 'compressed'}))
+    .pipe(gulp.dest("./app/dist/styles"));
+});

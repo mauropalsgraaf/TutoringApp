@@ -1,12 +1,12 @@
 module.exports = function (express) {
 
-  var getDevelopers = function () {
+  let getDevelopers = function () {
     express.get("/developers", function (req, res) {
-      res.json([{ name : "developer", age : 12 }, { name : "developer1", age : 66 }]);
+      res.json( [{ name : "developer", age : 122 }, { name : "developer1", age : 66 }]);
     });
   };
 
-  var getDeveloperById = function () {
+  let getDeveloperById = function () {
     express.get("/developers/:id", function (req, res) {
       res.json({ name : "developer", id : req.params.id });
     });
