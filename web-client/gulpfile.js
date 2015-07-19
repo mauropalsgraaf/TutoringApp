@@ -16,7 +16,7 @@ gulp.task('server', ['transformJS'], function () {
   });
 
   gulp.watch('./app/scripts/**/**/**/**/**/*.jsx', ['reload']);
-  gulp.watch('./app/styles/**/**/**/**/**/*.scss', ['reload']);
+  gulp.watch('./app/styles/*.scss', ['reload']);
 
 });
 
@@ -46,7 +46,7 @@ gulp.task('includeRequireAndIndex', ['compile-sass'], function () {
 });
 
 gulp.task('compile-sass', function () {
-  gulp.src('./app/styles/**/*.scss')
+  gulp.src('./app/styles/*.scss')
     .pipe(plumber())
     .pipe(sass({outputStyle: 'compressed'}))
     .pipe(gulp.dest("./app/dist/styles"));

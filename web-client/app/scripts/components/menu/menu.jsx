@@ -4,7 +4,7 @@ define(function (require, exports) {
   var React = require('react');
   var Router = require('react-router');
   var RouteHandler = Router.RouteHandler;
-  var MenuItem = require('components/menu/menuItems');
+  var MenuItem = require('components/menu/MenuItems');
 
   class Menu extends React.Component {
     constructor() {
@@ -13,9 +13,12 @@ define(function (require, exports) {
 
     render() {
       return (
-        <div>
-          <MenuItem.MenuItem name="sneaky" url="https://google.nl"/>
-          <MenuItem.MenuItem name="google" url="https://mapleeurope.com"/>
+        <div className="menu">
+          <ul>
+            <MenuItem.MenuItem name='Test1234' url='https://google.nl'/>
+            <MenuItem.MenuItem name='google' url='https://mapleeurope.com'/>
+            <MenuItem.MenuItem name='google' url='https://mapleeurope.com'/>
+          </ul>
         </div>
       );
     }

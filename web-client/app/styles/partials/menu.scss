@@ -1,0 +1,52 @@
+@import './globals';
+
+//variables
+$menu-background-color: #046380;
+$menu-text-color: #E6E2AF;
+$menu-width: 300px;
+$menu-height: 100vh;
+
+$menu-item-text-size: 22px;
+$menu-item-height: 100px;
+
+//code
+
+
+.menu {
+  margin: 0;
+  width: $menu-width;
+  height: $menu-height;
+  background-color: $menu-background-color;
+
+  ul {
+    list-style: none;
+    padding-left: 0;
+
+    li {
+
+      width: 100%;
+      height: $menu-item-height;
+      text-align: center;
+      font-family: $config-font-family;
+      font-size: $menu-item-text-size;
+
+      &:hover {
+
+        background-color: lighten($menu-background-color, 10);
+
+        a {
+          color: darken($menu-text-color, 10);
+        }
+      }
+
+      a {
+
+        text-decoration: none;
+        color: $menu-text-color;
+        display: block;
+        width: 100%;
+        line-height: $menu-item-height;
+      }
+    }
+  }
+}

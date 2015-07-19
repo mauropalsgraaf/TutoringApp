@@ -1,0 +1,8 @@
+@import './partials/menu';
+
+body {
+  position: relative;
+  top: -16px; //browsers got a white border on top, so replacing by 16 px will fix this
+  margin: 0;
+  padding: 0;
+}
